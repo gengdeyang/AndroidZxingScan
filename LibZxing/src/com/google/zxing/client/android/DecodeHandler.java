@@ -45,11 +45,17 @@ final class DecodeHandler extends Handler {
     private final MultiFormatReader multiFormatReader;
     private boolean running = true;
     private int frameCount;
+    private long intervalTime;
+    private static final long INTERVAL = 30 * 1000L;
+    private boolean isResetTime = true;
+    private Rect frameRect;
+
 
     DecodeHandler(CaptureActivity activity, Map<DecodeHintType, Object> hints) {
         multiFormatReader = new MultiFormatReader();
         multiFormatReader.setHints(hints);
         this.activity = activity;
+        frameRect = activity.getCameraManager().getFramingRect();
     }
 
     @Override
@@ -83,9 +89,13 @@ final class DecodeHandler extends Handler {
         frameCount++;
         //丢弃前2帧并每隔2帧分析下预览帧color值
         if (frameCount > 2 && frameCount % 2 == 0) {
-            analysisColor(rotatedData, width, height);
+            analysisBitmapColor(data, width, height);
         }
         long start = System.currentTimeMillis();
+        if (isResetTime) {
+            intervalTime = System.currentTimeMillis();
+            isResetTime = false;
+        }
         Result rawResult = null;
         final PlanarYUVLuminanceSource source = activity.getCameraManager().buildLuminanceSource(rotatedData, height, width);
         if (source != null) {
@@ -109,7 +119,6 @@ final class DecodeHandler extends Handler {
                 float point2X = rawResult.getResultPoints()[1].getX();
                 float point2Y = rawResult.getResultPoints()[1].getY();
                 int len = (int) Math.sqrt(Math.abs(point1X - point2X) * Math.abs(point1X - point2X) + Math.abs(point1Y - point2Y) * Math.abs(point1Y - point2Y));
-                Rect frameRect = activity.getCameraManager().getFramingRect();
                 if (frameRect != null) {
                     int frameWidth = frameRect.right - frameRect.left;
                     Camera camera = activity.getCameraManager().getCameraNotStatic();
@@ -121,7 +130,7 @@ final class DecodeHandler extends Handler {
                             if (zoom == 0) {
                                 zoom = maxZoom / 3;
                             } else {
-                                zoom = zoom + 5;
+                                zoom = zoom + 10;
                             }
                             if (zoom > maxZoom) {
                                 zoom = maxZoom;
@@ -139,6 +148,7 @@ final class DecodeHandler extends Handler {
                                     message.sendToTarget();
                                 }
                             }, 1000);
+
                         } else {
                             Message message = Message.obtain(handler, R.id.decode_succeeded, rawResult);
                             Bundle bundle = new Bundle();
@@ -159,26 +169,47 @@ final class DecodeHandler extends Handler {
             if (handler != null) {
                 Message message = Message.obtain(handler, R.id.decode_failed);
                 message.sendToTarget();
+//                if (!Constants.isWeakLight) {
+//                    long failedTimeStamp = System.currentTimeMillis();
+//                    if (failedTimeStamp - intervalTime > INTERVAL) {
+//                        isResetTime = true;
+//                        intervalTime = System.currentTimeMillis();
+//                        Camera camera = activity.getCameraManager().getCameraNotStatic();
+//                        Camera.Parameters parameters = camera.getParameters();
+//                        final int maxZoom = parameters.getMaxZoom();
+//                        int zoom = parameters.getZoom();
+//                        if (parameters.isZoomSupported()) {
+//                            if (zoom == 0) {
+//                                zoom = maxZoom / 2;
+//                            } else {
+//                                zoom = zoom + 10;
+//                            }
+//                            if (zoom > maxZoom) {
+//                                zoom = maxZoom;
+//                            }
+//                            parameters.setZoom(zoom);
+//                            camera.setParameters(parameters);
+//                        }
+//                    }
+//                }
             }
         }
     }
 
-    //分析预览帧中图片的arg 取平均值
-
-    private void analysisColor(byte[] data, int width, int height) {
-        int[] rgb = decodeYUV420SP(data, width / 8, height / 8);
-        Bitmap bmp = Bitmap.createBitmap(rgb, width / 8, height / 8, Bitmap.Config.ARGB_8888);
+    private void analysisBitmapColor(byte[] data, int width, int height) {
+        int[] rgb = decodeYUV420SP(data, width, height);
+        Bitmap bmp = null;
+        if (null != frameRect) {
+            //取矩形扫描框frameRect的2分之一创建为bitmap来分析
+            bmp = Bitmap.createBitmap(rgb, frameRect.left + (frameRect.right - frameRect.left) / 4, frameRect.width() / 2, frameRect.width() / 2, frameRect.height() / 2, Bitmap.Config.ARGB_4444);
+        }
         if (bmp != null) {
-            //取以中心点宽高10像素的图片来分析
-            Bitmap resizeBitmap = Bitmap.createBitmap(bmp, bmp.getWidth() / 2, bmp.getHeight() / 2, 10, 10);
-            float color = (float) getAverageColor(resizeBitmap);
+            float color = getAverageColor(bmp);
             DecimalFormat decimalFormat1 = new DecimalFormat("0.00");
             String percent = decimalFormat1.format(color / -16777216);
             float floatPercent = Float.parseFloat(percent);
-            Constants.isWeakLight = floatPercent >= 0.99 && floatPercent <= 1.00;
-            if (null != resizeBitmap) {
-                resizeBitmap.recycle();
-            }
+            Log.e(TAG, " color= " + color + " floatPercent= " + floatPercent + " bmp width= " + bmp.getWidth() + " bmp height= " + bmp.getHeight());
+            Constants.isWeakLight = (color == -16777216 || (floatPercent >= 0.95 && floatPercent <= 1.00));
             bmp.recycle();
         }
     }
@@ -234,7 +265,6 @@ final class DecodeHandler extends Handler {
                 blueBucket += Color.blue(c);
             }
         }
-
         int averageColor = Color.rgb(redBucket / pixelCount, greenBucket
                 / pixelCount, blueBucket / pixelCount);
         return averageColor;
