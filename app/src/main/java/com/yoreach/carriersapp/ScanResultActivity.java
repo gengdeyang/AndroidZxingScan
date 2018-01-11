@@ -64,7 +64,6 @@ public class ScanResultActivity extends AppCompatActivity {
                 break;
         }
     }
-
     @Override
     public int checkSelfPermission(String permission) {
         return super.checkSelfPermission(permission);
