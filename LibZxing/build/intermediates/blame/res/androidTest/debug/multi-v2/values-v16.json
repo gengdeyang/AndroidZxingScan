@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\sdj\\Desktop\\android-Camera2Basic-master\\AndroidZxingScan\\LibZxing\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v16\\values-v16.xml",
+            "outputFile": "/Users/deyang/Documents/studioproject/YoreachCarrierApp/LibZxing/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\sdj\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1045b4e0af71c92ec1351bd9b1f40cf7\\res\\values-v16\\values-v16.xml",
+                    "source": "/Users/deyang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/4a166692190f3c3acdbaf1a9d648f4d0/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,13 +23,47 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\sdj\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\3f832892babddbed87a7da8e1e5cb06d\\res\\values-v16\\values-v16.xml",
+                    "source": "/Users/deyang/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/b7a57bf8dff70649afb5d0d202e1d210/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
                         "startOffsets": "55",
                         "endColumns": "65",
                         "endOffsets": "116"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/deyang/Documents/studioproject/AndroidZxingScan/LibZxing/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-v16/values-v16.xml",
+            "map": [
+                {
+                    "source": "/Users/deyang/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/08995cfe3ad414f27385a4b14a22b27b/res/values-v16/values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                },
+                {
+                    "source": "/Users/deyang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/e936025daf991341b76b46730a380cb0/res/values-v16/values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "223"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "121",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "289"
                     }
                 }
             ]

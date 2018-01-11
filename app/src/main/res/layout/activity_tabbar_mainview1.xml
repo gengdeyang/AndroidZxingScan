@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+              android:background="@color/white">
+    <View
+        android:id="@+id/filtermain"
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="#88000000" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/title_bar">
+
+        <TextView
+            android:id="@+id/titlename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text=""
+            android:textColor="#fff"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/shaixuan_button"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/circle"
+            android:text=""/>
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="#FFFFFF">
+
+        <LinearLayout
+            android:id="@+id/vpcontainer01"
+            android:layout_width="fill_parent"
+            android:layout_weight="1.0"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+           <TextView
+                android:id="@+id/container01_text1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="未配载订单"
+                android:textColor="@color/red_main"
+                android:textSize="13sp"/>
+            <TextView
+                android:id="@+id/container01_text2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="(10台)"
+                android:textColor="@color/red_main"
+                android:textSize="13sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/vpcontainer02"
+            android:layout_width="fill_parent"
+            android:layout_weight="1.0"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+            <TextView
+                android:id="@+id/container02_text1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="已配载订单"
+                android:textColor="@color/black_middle"
+                android:textSize="13sp"/>
+            <TextView
+                android:id="@+id/container02_text2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="(11台)"
+                android:textColor="@color/black_middle"
+                android:textSize="13sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/vpcontainer03"
+            android:layout_width="fill_parent"
+            android:layout_weight="1.0"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+            <TextView
+                android:id="@+id/container03_text1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="已完成订单"
+                android:textColor="@color/black_middle"
+                android:textSize="13sp"/>
+            <TextView
+                android:id="@+id/container03_text2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="(12台)"
+                android:textColor="@color/black_middle"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/cursor"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="matrix"
+            android:src="@drawable/redline2"/>
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/vPager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.0"
+            android:background="#000000"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation"/>
+
+</LinearLayout>

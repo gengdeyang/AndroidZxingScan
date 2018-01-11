@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidZxingScan.iml" filepath="$PROJECT_DIR$/AndroidZxingScan.iml" />
       <module fileurl="file://C:\Users\sdj\Desktop\android-Camera2Basic-master\AndroidZxingScan\AndroidZxingScan.iml" filepath="C:\Users\sdj\Desktop\android-Camera2Basic-master\AndroidZxingScan\AndroidZxingScan.iml" />
       <module fileurl="file://$PROJECT_DIR$/LibZxing/LibZxing.iml" filepath="$PROJECT_DIR$/LibZxing/LibZxing.iml" />
       <module fileurl="file://C:\Users\sdj\Desktop\android-Camera2Basic-master\AndroidZxingScan\LibZxing\LibZxing.iml" filepath="C:\Users\sdj\Desktop\android-Camera2Basic-master\AndroidZxingScan\LibZxing\LibZxing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/YoreachCarrierApp.iml" filepath="$PROJECT_DIR$/YoreachCarrierApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\sdj\Desktop\android-Camera2Basic-master\AndroidZxingScan\app\app.iml" filepath="C:\Users\sdj\Desktop\android-Camera2Basic-master\AndroidZxingScan\app\app.iml" />
     </modules>
